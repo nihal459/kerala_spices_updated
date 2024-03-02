@@ -1,0 +1,42 @@
+{% extends 'spices_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container mt-4">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Product Price</th>
+                    <th>Ordered Quantity</th>
+                    <th>Total Price</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordered_product in products %}
+                <tr>
+                    <td><img src="{{ ordered_product.product.imageURL }}" width="50"></td>
+                    <td>{{ ordered_product.product.product_name }}</td>
+                    <td>{{ ordered_product.product.category }}</td>
+                    <td>${{ ordered_product.product.price }}</td>
+                    <td>{{ ordered_product.quantity }}</td>
+                    <td>${{ ordered_product.price }}</td>  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+{% endblock %}

@@ -1,0 +1,215 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="search-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <div class="search-bar">
+                    <div class="search-bar-tablecell">
+                        <h3>Search For:</h3>
+                        <input type="text" placeholder="Keywords">
+                        <button type="submit">Search <i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end search arewa -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>"Flavorful Cart"</p>
+                    <h1>Cart</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+{% if request.user.is_authenticated %}
+<br>
+<br>
+<br>
+
+<br>
+<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th class="product-image">Product Image</th>
+                                <th class="product-name">Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cart_item in cart_items %}
+                                <tr class="table-body-row">
+                                    <td class="product-remove"><a href="{% url 'product_remove_cart' cart_item.pk %}"><i class="far fa-trash-alt"></i></a></td>
+                                    <td class="product-image"><img src="{{ cart_item.product.imageURL }}" alt="{{ cart_item.product.product_name }}"></td>
+                                    <td class="product-name">{{ cart_item.product.product_name }}</td>
+                                    <td class="product-price">${{ cart_item.product.price }}</td>
+                                    {% comment %} <td class="product-quantity"><input type="number" value="{{ cart_item.quantity }}" min="1"></td> {% endcomment %}
+                                    <td class="product-quantity">
+                                        <input type="number" value="{{ cart_item.quantity }}" min="1" class="quantity-input" data-cart-item-id="{{ cart_item.pk }}">
+                                    </td>
+                                    <td class="product-total">${{cart_item.single_total}}</td>
+
+                                    {% if cart_item.quantity > cart_item.product.available_quantity %}
+                                        <td><span style="color: red;"><b>Sorry, Only {{ cart_item.product.available_quantity }} left</b></span></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="total-section">
+                    <table class="total-table">
+                        <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Total</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-data">
+                                <td><strong>Sub Total: </strong></td>
+                                <td>${{ subtotal|floatformat:2 }}</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Shipping: </strong></td>
+                                <td>${{ shipping_charge|floatformat:2 }}</td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Grand Total: </strong></td>
+                                <td>${{ total|floatformat:2 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% comment %} <div class="cart-buttons">
+                        <a href="" class="boxed-btn">Update Cart</a>
+                        <a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
+                    </div> {% endcomment %}
+
+                    <div class="cart-buttons">
+                        {% if allow_checkout %}
+                            <a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
+                        {% else %}
+                            <p style="color: red;">Please decrease the quantity of products in your cart before checking out</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end cart -->
+{% else %}
+<br>
+<br>
+<br>
+<br>
+<h3 style="text-align:center;">No items in your cart</h3>
+<br>
+<h5 style="text-align:center;">Login to add items in your cart</h5>
+<br>
+<br>
+<br>
+<br>
+{% endif %}
+
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img src="{% static 'assets/img/company-logos/1.png' %}" alt="company logo">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="{% static 'assets/img/company-logos/2.png' %}" alt="company logo">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="{% static 'assets/img/company-logos/3.png' %}" alt="company logo">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="{% static 'assets/img/company-logos/4.png' %}" alt="company logo">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="{% static 'assets/img/company-logos/5.png' %}" alt="company logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Add this script to your HTML -->
+    <script>
+        $(document).ready(function () {
+            // Function to handle quantity updates
+            function updateQuantity(cartItemId, newQuantity) {
+                // Send an AJAX request to update the quantity on the server
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "update_cart_quantity" %}',
+                    data: {
+                        'cart_item_id': cartItemId,
+                        'quantity': newQuantity,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        // Update the corresponding totals in the table
+                        $('#product-total-' + cartItemId).text('$' + data.single_total);
+                        $('#subtotal').text('$' + data.subtotal);
+                        $('#total').text('$' + data.total);
+                        
+                        // Perform the page refresh after updating the quantity
+                        location.reload(true); // Force reload from the server, not from the cache
+                    },
+                    error: function (data) {
+                        console.log('Error updating quantity');
+                    }
+                });
+            }
+            
+            // Listen for changes in quantity input
+            $('.quantity-input').on('input', function () {
+                // Get the cart item ID and new quantity
+                var cartItemId = $(this).data('cart-item-id');
+                var newQuantity = $(this).val();
+    
+                // Call the function to update the quantity
+                updateQuantity(cartItemId, newQuantity);
+            });
+        });
+    </script>
+    
+
+{% endblock %}

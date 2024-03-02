@@ -1,0 +1,121 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Shop</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+	<!-- products -->
+	<div class="product-section mt-100 mb-100">
+		<div class="container">
+		
+			
+			<div class="row product-lists">
+				{% for product in products %}
+				<div class="col-lg-3 col-md-4 col-sm-4 col-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{% url 'single_product' product.pk %}">
+								<img src="{{ product.imageURL }}" alt="">
+							</a>
+						</div>
+						<h3>{{ product.product_name }}</h3>
+						<p class="product-price"><span>Per Kg</span> {{ product.price }}$</p>
+						{% if product.quantity > 0 %}
+							{% if request.user.is_authenticated %}
+								<a href="{% url 'add_to_cart' product.pk %}" class="cart-btn" onclick="addToCart(event, {{ product.pk }})"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							{% else %}
+								<a href="#" class="cart-btn" onclick="showLoginMessage(event, {{ product.pk }})"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								<p id="loginMessage_{{ product.pk }}" style="display: none;">Please login to add to cart</p>
+							{% endif %}
+						{% else %}
+							<p class="out-of-stock">Out of Stock</p>
+						{% endif %}
+						<p id="successMessage" style="display: none; color: green;"></p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			
+			<script>
+				function showLoginMessage(event, productId) {
+					var messageElement = document.getElementById("loginMessage_" + productId);
+					messageElement.style.display = "block";
+					event.preventDefault(); // Prevents the default behavior of the anchor tag
+				}
+			
+				function addToCart(event, productId) {
+					// Check if the product is out of stock
+					var quantity = {{ product.quantity }};
+					if (quantity <= 0) {
+						alert("This product is out of stock.");
+						event.preventDefault(); // Prevents the default behavior of the anchor tag
+						return;
+					}
+			
+					// If not out of stock, proceed with adding to cart
+					var successMessageElement = document.getElementById("successMessage");
+					successMessageElement.innerHTML = "Product added to cart";
+					successMessageElement.style.display = "block";
+				}
+			</script>
+			
+			
+
+		</div>
+	</div>
+	<!-- end products -->
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/1.png' %}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/2.png' %}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/3.png' %}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/4.png' %}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/5.png' %}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

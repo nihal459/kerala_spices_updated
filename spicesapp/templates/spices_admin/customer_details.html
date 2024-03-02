@@ -1,0 +1,84 @@
+{% extends 'spices_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="fw-semibold mb-4">Customer</h1>
+        <!-- table begin -->
+        <div class="card w-100">
+          <div class="card-body p-3">
+            <h5 class="card-title fw-semibold mb-4">Customers Details</h5>
+            <div class="table-responsive">
+              <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                  <tr>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Id</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Name</h6>
+                    </th>
+          
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Mobile No</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Address</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">City</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Landmark</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Zip code</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0">Email id</h6>
+                    </th>
+      
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for customer in customers %}
+                  <tr>
+                    <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{ forloop.counter }}</h6></td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.name }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.mobile_number }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.address }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.city }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.landmark }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.pincode }}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">{{ customer.email }}</p>
+                    </td>
+
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- table end -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

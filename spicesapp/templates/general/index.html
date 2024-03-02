@@ -1,0 +1,331 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+	<!-- home page slider -->
+	<div class="homepage-slider">
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">Keralaspices.</p>
+								<h1 style="color: rgba(255, 255, 255, 0.763);">Enjoy the tradition and bring it back to
+									you.</h1>
+								<div class="hero-btns">
+									<a href="{% url 'shop' %}" class="boxed-btn">Visit Shop</a>
+									<a href="{% url 'contact_us' %}" class="bordered-btn">Contact Us</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1 text-center">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">Keralaspices.</p>
+								<h2 style="color: rgba(255, 255, 255, 0.763);">"Explore our flavorful range and elevate
+									your culinary journey."</h2>
+								<div class="hero-btns">
+									<a href="{% url 'shop' %}" class="boxed-btn">Visit Shop</a>
+									<a href="{% url 'contact_us' %}" class="bordered-btn">Contact Us</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1 text-right">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">Keralaspices.</p>
+								<h1 style="color: rgba(255, 255, 255, 0.763);">The perfect place you are looking for.
+								</h1>
+								<div class="hero-btns">
+									<a href="{% url 'shop' %}" class="boxed-btn">Visit Shop</a>
+									<a href="{% url 'contact_us' %}" class="bordered-btn">Contact Us</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end home page slider -->
+	<!-- features list section -->
+	<div class="list-section pt-80 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-shipping-fast"></i>
+						</div>
+						<div class="content">
+							<h3>Free Shipping</h3>
+							<p>When order over $75</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-phone-volume"></i>
+						</div>
+						<div class="content">
+							<h3>24/7 Support</h3>
+							<p>Get support all day</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6">
+					<div class="list-box d-flex justify-content-start align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-sync"></i>
+						</div>
+						<div class="content">
+							<h3>Refund</h3>
+							<p>Get refund within 3 days!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end features list section -->
+	<!-- product section -->
+	<div class="product-section mt-100">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 text-center">
+					<div class="section-title">
+						<h3><span class="orange-text">Our</span> Categories</h3>
+						<p>"Discover the Essence of Kerala in Our Diverse Product Range".</p>
+					</div>
+				</div>
+			</div>
+			<!-- logo carousel -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<div class="logo-carousel-inner">
+			
+							{% for i in products %}
+							<div class="single-product-item">
+								<div class="product-image">
+									<a href="{% url 'category_products' i.pk %}">
+										<img src="{{ i.imageURL }}" class="card-img-top category-image" alt="">
+									</a>
+								</div> <br>
+								<h3>{{ i.category_name }}</h3>
+								<a href="{% url 'category_products' i.pk %}" class="cart-btn">
+									<i class="fas fa-shopping-cart"></i>Check Now
+								</a>
+							</div>
+							{% endfor %}
+			
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- end logo carousel -->
+		</div>
+	</div>
+	<!-- end product section -->
+	<!-- cart banner section -->
+	<section class="cart-banner pb-100">
+		<div class="container">
+			<div class="row clearfix">
+				<!--Image Column-->
+				<div class="col-lg col-sm">
+					<div class="image">
+						<!-- <div class="price-box">
+                        	<div class="inner-price">
+                                <span class="price">
+                                    <strong>30%</strong> <br> off per kg
+                                </span>
+                            </div>
+                        </div> -->
+						<img src="{% static 'assets/img/a2.jpg' %}" alt="">
+					</div>
+				</div>
+				<!--Content Column-->
+				<div class="content-column col-lg-8 col-sm mt-100">
+					<h3><span class="orange-text">Deal</span> of the month</h3>
+					<h4>Brahmin's Sliced Mango Pickle</h4>
+					<div class="text">"Experience the flavors of Kerala right here in New Zealand with our deal of the
+						month! Indulge in the exquisite taste of authentic Kerala spices, curry powders, and oils, while
+						upgrading your kitchen with the finest utensils. Don't miss out on this limited-time offer to
+						elevate your culinary journey."</div>
+					<!--Countdown Timer-->
+					<a href="{% url 'shop' %}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end cart banner section -->
+	<!-- testimonail-section -->
+	<div class="testimonail-section mt-100 mb-50">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1 text-center">
+					<div class="testimonial-sliders">
+						<div class="single-testimonial-slider">
+							<div class="client-avater">
+								<img src="{% static 'assets/img/avaters/avatar1.png' %}" alt="">
+							</div>
+							<div class="client-meta">
+								<h3>Hemand S Prabhakaren <span></span></h3>
+								<p class="testimonial-body">
+									"I couldn't be happier with my shopping experience at Keralaspices! The website is
+									user-friendly, and the selection of Kerala spices and products is fantastic. I
+									received my order promptly, and the quality of the items exceeded my expectations.
+									Will definitely be ordering again!"
+								</p>
+								<div class="last-icon">
+									<i class="fas fa-quote-right"></i>
+								</div>
+							</div>
+						</div>
+						<div class="single-testimonial-slider">
+							<div class="client-avater">
+								<img src="{% static 'assets/img/avaters/avatar2.png' %}" alt="">
+							</div>
+							<div class="client-meta">
+								<h3>Ajith<span></span></h3>
+								<p class="testimonial-body">
+									"As a Malayali living in New Zealand, finding authentic Kerala spices was a real
+									treat. Keralaspices delivered on its promise of authenticity. The curry powder
+									tasted just like home! The customer support team was also very helpful in answering
+									my questions."
+								</p>
+								<div class="last-icon">
+									<i class="fas fa-quote-right"></i>
+								</div>
+							</div>
+						</div>
+						<div class="single-testimonial-slider">
+							<div class="client-avater">
+								<img src="{% static 'assets/img/avaters/avatar3.png' %}" alt="">
+							</div>
+							<div class="client-meta">
+								<h3>Jacob Sikim <span></span></h3>
+								<p class="testimonial-body">
+									"I had a minor issue with my order, and the customer support team at Keralaspices
+									was incredible. They resolved the problem quickly and efficiently, and their
+									friendly approach made me feel valued as a customer. Great products and even better
+									service!"
+								</p>
+								<div class="last-icon">
+									<i class="fas fa-quote-right"></i>
+								</div>
+							</div>
+						</div>
+						<div class="single-testimonial-slider">
+							<div class="client-avater">
+								<img src="{% static 'assets/img/avaters/avatar4.png' %}" alt="">
+							</div>
+							<div class="client-meta">
+								<h3>Emly John <span></span></h3>
+								<p class="testimonial-body">
+									Overall, my experience with Keralaspices was positive. The spices were of good
+									quality, and the website was easy to navigate. However, I would suggest adding more
+									variety to the kitchen utensils section. It would make the shopping experience even
+									better."
+								</p>
+								<div class="last-icon">
+									<i class="fas fa-quote-right"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end testimonail-section -->
+	<!-- advertisement section -->
+	<div class="abt-section mb-50">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-bg">
+						<a href="" class=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-text">
+						<p class="top-sub">Since Year 1999</p>
+						<h2>We are <span class="orange-text">Keralaspices</span></h2>
+						<p>Welcome to Keralaspices, your ultimate online destination for all things Kerala in the
+							beautiful land of New Zealand. We are delighted to be your gateway to the vibrant world of
+							Kerala, a land steeped in cultural heritage, renowned for its aromatic spices, and
+							celebrated for its culinary excellence.</p>
+						<p>At Keralaspices, we curate an extensive selection of products that encapsulate the very
+							essence of Kerala. From fragrant curry powders and spices that capture the spirit of
+							Kerala's kitchens to top-notch kitchen utensils and cookware, our online store serves as
+							your digital marketplace for everything Kerala.</p>
+						<a href="{% url 'about_us' %}" class="boxed-btn mt-4">know more</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end advertisement section -->
+	<!-- shop banner -->
+	<section class="shop-banner">
+		<div class="container">
+			<h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
+			<div class="sale-percent"><span>Sale! <br> Upto</span>20% <span>off</span></div>
+			<a href="{% url 'shop' %}" class="cart-btn btn-lg">Shop Now</a>
+		</div>
+	</section>
+
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/1.png' %}" alt="company logo">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/2.png' %}" alt="company logo">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/3.png' %}" alt="company logo">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/4.png' %}" alt="company logo">
+						</div>
+						<div class="single-logo-item">
+							<img src="{% static 'assets/img/company-logos/5.png' %}" alt="company logo">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+	<!-- footer -->
+
+
+
+{% endblock %}

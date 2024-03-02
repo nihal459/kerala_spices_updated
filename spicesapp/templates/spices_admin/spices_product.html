@@ -1,0 +1,166 @@
+{% extends 'spices_admin/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="fw-semibold mb-4">Add Product</h1>
+        <div class="card">
+          <div class="card-body">
+
+
+            <form method="POST" action="{% url 'spices_product' %}" enctype="multipart/form-data">  
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <label for="name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="" required>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <label for="code" class="form-label">Product Code <span style="color:red;">(Note: Must fill & once added cannot be edited)</span></label>
+                        <input type="text" class="form-control" id="code" name="code" value="" required>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <label for="category" class="form-label">Category <span style="color:red;">(Must)</span></label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option disabled selected>Category select</option>
+                            {% for category in categories %}
+                                <option value="{{ category.pk }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6 col-md-4 col-sm-4">
+                        <label for="price" class="form-label">Product Price</label>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" value="" required>
+                    </div>
+                    <div class="col-lg-6 col-md-8 col-sm-8">
+                        <label for="quantity" class="form-label">Product Quantity <span style="color:red; font-size:9.8px;">(Refers to the number of products present in the inventory)</span></label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <label for="image" class="form-label">Product Image<span style="color:red;">(Add images of small size to save storage & increase speed of website)</span></label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                        <img src="" alt="" width="100" id="preview-image">
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <label for="description" class="form-label">Product Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="2" cols="50" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" name="submitp">Submit</button>
+            </form>
+            
+            <script>
+                // Preview image before upload
+                document.getElementById('image').addEventListener('change', function(event) {
+                    var previewImage = document.getElementById('preview-image');
+                    previewImage.src = URL.createObjectURL(event.target.files[0]);
+                });
+            </script>
+            
+          </div>
+        </div>
+
+<!-- table begin -->
+<!-- table begin -->
+<div class="card w-100">
+    <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">View Product List</h5>
+        <div class="table-responsive">
+            <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                    <tr>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Id</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Product Code</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Product name</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Category</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Quantity</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Price</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Description</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Image</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Edit</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Delete</h6>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{ product.id }}</h6></td>
+                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{ product.product_code}}</h6></td>
+
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">{{ product.product_name }}</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">{{ product.category.category_name }}</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">{{ product.quantity }}</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0 fs-4">${{ product.price }}</h6>
+                        </td>
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">{{ product.description }}</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0 fs-4"><img src="{{ product.imageURL }}" alt="product image" width="50"></h6>
+                        </td>
+                        <td class="border-bottom-0">
+                            <a href="{% url 'edit_product' product.pk %}"><span><i class="ti ti-edit btn btn-outline-success"></i></span></a>
+                        </td>
+                        <td class="border-bottom-0">
+                            <a href="{% url 'delete_product' product.pk %}"><span><i class="ti ti-trash btn btn-outline-danger"></i></span></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<!-- table end -->
+
+<!-- table end -->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+{% endblock %}

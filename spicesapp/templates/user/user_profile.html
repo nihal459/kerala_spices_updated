@@ -1,0 +1,85 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Keep Your Profile Updated</p>
+						<h1>My Profile</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+    <br>
+    <br>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        {% comment %} <h5 class="card-title text-center">User Details</h5> {% endcomment %}
+                        <!-- User Details -->
+						<form method="POST">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="name">Name:</label>
+								<input type="text" class="form-control" id="name" name="name" value="{{ request.user.name }}">
+							</div>
+							<div class="form-group">
+								<label for="mobile_number">Mobile Number:</label>
+								<input type="tel" pattern="[0-9]{10}" maxlength="10" class="form-control" id="mobile_number" name="mobile_number" value="{{ request.user.mobile_number }}">
+								<small class="form-text text-muted">Please enter a 10-digit mobile number.</small>
+							</div>
+							
+							<div class="form-group">
+								<label for="email">Email:</label>
+								<input type="email" class="form-control" id="email" value="{{ request.user.email }}" readonly>
+							</div>
+							{% comment %} <div class="form-group">
+								<label for="location">Location:</label>
+								<input type="url" class="form-control" id="location" name="location" value="{{ request.user.location }}">
+							</div> {% endcomment %}
+							<div class="form-group">
+								<label for="address">Address:</label>
+								<textarea class="form-control" id="address" name="address">{{ request.user.address }}</textarea>
+							</div>
+							<div class="form-group">
+								<label for="city">City:</label>
+								<input type="text" class="form-control" id="city" name="city" value="{{ request.user.city }}">
+							</div>
+							<div class="form-group">
+								<label for="landmark">Landmark:</label>
+								<input type="text" class="form-control" id="landmark" name="landmark" value="{{ request.user.landmark }}">
+							</div>
+							<div class="form-group">
+								<label for="pincode">Pincode:</label>
+								<input type="text" pattern="[0-9]*" inputmode="numeric" class="form-control" id="pincode" name="pincode" value="{{ request.user.pincode }}">
+								<small class="form-text text-muted">Please enter numbers only.</small>
+							</div>
+							
+							<button type="submit" class="btn btn-primary">Update</button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
+
+{% endblock %}

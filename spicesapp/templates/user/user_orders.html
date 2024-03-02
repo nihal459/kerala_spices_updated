@@ -1,0 +1,64 @@
+{% extends 'general/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Kerala Spices</p>
+                    <h1>My Orders</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="container mt-4">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Total Price</th>
+                    <th>Checkout Date</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Pincode</th>
+                    {% comment %} <th>Location</th> {% endcomment %}
+                    <th>Status</th>
+                    <th>View Products</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordered_product in ordered_products %}
+                <tr>
+                    <td>{{ ordered_product.pk }}</td>
+                    <td>${{ ordered_product.total_price }}</td>
+                    <td>{{ ordered_product.checkout_date|date:"d-m-Y" }}</td>
+                    <td>{{ ordered_product.address }}</td>
+                    <td>{{ ordered_product.city }}</td>
+                    <td>{{ ordered_product.pincode }}</td>
+                    {% comment %} <td>{{ ordered_product.location }}</td> {% endcomment %}
+                    <td>{{ ordered_product.status }}</td>
+                    <td><a href="{% url 'view_products' ordered_product.pk %}">View Products</td>
+                    <td><a href="{% url 'delete_order2' ordered_product.pk %}"><i class="far fa-trash-alt"></i></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+
+
+
+{% endblock %}
